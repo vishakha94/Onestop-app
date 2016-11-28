@@ -10,34 +10,83 @@
         android:inputType="text"
         android:singleLine="true" />
 
-    <CheckBoxPreference
-        android:title="Facebook Events"
+
+
+
+
+    <SwitchPreference
+        android:id="@+id/fbSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:title="Facebook"
+        android:summaryOff="Enable Facebook sync"
+        android:summaryOn="Logged in"
+        android:key="fbPref"
         android:defaultValue="false"
-        android:summary="Select to enable facebook sync"
-        android:key="facebookPref" />
+        />
 
-
-    <CheckBoxPreference
+    <SwitchPreference
+        android:id="@+id/gmailSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
         android:title="Google Calendar"
+        android:summaryOff="Google Calendar sync"
+        android:summaryOn="Logged in"
+        android:key="gmailPref"
         android:defaultValue="false"
-        android:summary="Select to enable google calendar"
-        android:key="gmailPref" />
+        />
 
-    <CheckBoxPreference
-        android:title="Outlook Calendar"
+    <SwitchPreference
+        android:id="@+id/outlookSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:title="Outlook"
+        android:summaryOff="Enable Outlook sync"
+        android:summaryOn="Logged in"
+        android:key="outlookPref"
         android:defaultValue="false"
-        android:summary="Select to enable outlook calendar"
-        android:key="outlookPref" />
+        />
 
-    <CheckBoxPreference
-        android:title="OneNote"
+    <SwitchPreference
+        android:id="@+id/enoteSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:title="Facebook"
+        android:summaryOff="Enable Evernote sync"
+        android:summaryOn="Logged in"
+        android:key="enotePref"
         android:defaultValue="false"
-        android:summary="Select to enable OneNote"
-        android:key="onenotePref" />
+        />
 
-    <CheckBoxPreference
-        android:title="EverNote"
+    <SwitchPreference
+        android:id="@+id/onoteSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:title="Facebook"
+        android:summaryOff="Enable OneNote sync"
+        android:summaryOn="Logged in"
+        android:key="onetPref"
         android:defaultValue="false"
-        android:summary="Select to enable EverNote"
-        android:key="evernotePref" />
+        />
+
+
+
+
+
+
 </PreferenceScreen>
