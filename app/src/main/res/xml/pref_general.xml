@@ -63,7 +63,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:title="Facebook"
+        android:title="Evernote"
         android:summaryOff="Enable Evernote sync"
         android:summaryOn="Logged in"
         android:key="enotePref"
@@ -77,10 +77,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="20dp"
-        android:title="Facebook"
+        android:title="OneNote"
         android:summaryOff="Enable OneNote sync"
         android:summaryOn="Logged in"
-        android:key="onetPref"
+        android:key="onetePref"
         android:defaultValue="false"
         />
 
