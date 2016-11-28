@@ -47,6 +47,11 @@ public class MainActivity extends ActionBarActivity {
             Intent settingsPage = new Intent(this,SettingsActivity.class);
             startActivity(settingsPage);
             return true;
+        } else if (id == R.id.action_categories) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, new CategoriesFragment())
+                    .addToBackStack(null)
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
