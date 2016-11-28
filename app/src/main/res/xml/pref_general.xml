@@ -10,4 +10,34 @@
         android:inputType="text"
         android:singleLine="true" />
 
+    <CheckBoxPreference
+        android:title="Facebook Events"
+        android:defaultValue="false"
+        android:summary="Select to enable facebook sync"
+        android:key="facebookPref" />
+
+
+    <CheckBoxPreference
+        android:title="Google Calendar"
+        android:defaultValue="false"
+        android:summary="Select to enable google calendar"
+        android:key="gmailPref" />
+
+    <CheckBoxPreference
+        android:title="Outlook Calendar"
+        android:defaultValue="false"
+        android:summary="Select to enable outlook calendar"
+        android:key="outlookPref" />
+
+    <CheckBoxPreference
+        android:title="OneNote"
+        android:defaultValue="false"
+        android:summary="Select to enable OneNote"
+        android:key="onenotePref" />
+
+    <CheckBoxPreference
+        android:title="EverNote"
+        android:defaultValue="false"
+        android:summary="Select to enable EverNote"
+        android:key="evernotePref" />
 </PreferenceScreen>

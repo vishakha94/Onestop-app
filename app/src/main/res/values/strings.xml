@@ -16,4 +16,6 @@
     <!-- Default postal code for location preference [CHAR LIMIT=NONE] -->
     <string name="pref_location_default" translatable="false">94043</string>
 
+    <string name="facebook_app_id" translatable="false">1765630923759997</string>
+
 </resources>

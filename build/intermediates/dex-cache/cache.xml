@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="ee5faf4dee5b6a4364bf51587871047dde7c703a">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_554f01941e2123f5e5b6642dd2f2588312bf5bd5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/visheei/Desktop/Sunshine/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="21.1.2"
         sha1="6429d941a258894a361eaa1f87eeae36248f846c">
         <dex dex="/Users/visheei/Desktop/Sunshine/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_a79f511487bc1c555cc077c184e2ea1f99785433/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="21.1.2"
-        sha1="4c6cbc2a502dfe3fe79f7aba794dbbebe78cb656">
-        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_5e69ef17945a74dd046e02cfc1c2acf3231054d5/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -30,12 +30,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/jars/classes.jar"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/customtabs/25.0.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="21.1.2"
-        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
-        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-21.0.2_f29877ec4ba4f1823afcb519f829728d9e1da914/classes.dex" />
+        sha1="94ba691efc31bf53264db0716d9c9ec03843ea31">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-customtabs-25.0.0_c48b73b204b49d65962c061a576c77cf0fa386e7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="8bc45ce1f63d1a391fd38b32a201be5a42f9c95d">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.0_d75fd53c83b42e90f29aef721b5f5b0e96f93b08/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -48,30 +57,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="21.1.2"
-        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
-        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-21.0.2_87e2aafa44850dfa64271a1045932c645787a3a0/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/jars/libs/internal_impl-21.0.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="21.1.2"
-        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
-        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-21.0.2_d58098a54fb15bf77b19b61af04ce151407edb13/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="21.1.2"
-        sha1="27621133c2daaf3f6db4d6bca61c88def0246c44">
+        sha1="4f2481f0318b53ab26de15d2172556f382a97a46">
         <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_5b91360519c9c5bd86ec6400430107dd1f6e557c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-applinks-1.4.0_73f39ef273c8c49f4ee3e34a25cf65aaadf92b17/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -84,12 +84,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/visheei/Desktop/Sunshine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/jars/classes.jar"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="21.1.2"
-        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
-        <dex dex="/Users/visheei/Desktop/Sunshine/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-21.0.2_a26a92eab1a6d92231375b45920dcdab7966cc2d/classes.dex" />
+        sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.0_d365d094c266d0db34d885a5ff391ded6e6c7895/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -99,6 +99,159 @@
         revision="21.1.2"
         sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
         <dex dex="/Users/visheei/Desktop/Sunshine/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-21.0.2_8cf6fdd9cfe6839c692bb774da506e576025bfb0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.17.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="23c7c34bfb3cdc0599d49e581486b179bc6b2eee">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.facebook.android-facebook-android-sdk-4.17.0_c925451b4337f61b7c63834b15e051dee2da5f6e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="eca53169843d9e9857b44f4f32923669ab9edf98">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_5e69ef17945a74dd046e02cfc1c2acf3231054d5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="3b61a70884adaf0be3fc06c70c801e3e6df13133">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_89605ae1c8eff83a287e399c3fdc4d67661362dd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="07daa0b6e1d455c82a38422ffe287c18823d339a">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.0.0_616d74dac476f49f5ea46313318aecb38cc2113c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="76fb65a4b41ea42dab8a1310ed772a2420c96b52">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.0_b377f59116a2d736dce509bd0e66fa7118832e26/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="75b1f366ff0bbc78f8b1f7cf0dc82e7c53afef6a">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.0.0_a10e65cdea0c136704aa7efd7fe3921587d4a8d9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.0.0_e31396fdbc9377061330fe63e3540b29e6ec4cd6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="8a372c4191f80489770a231f7be4820b204b886a">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-25.0.0_5faf98f1d2de055dc06da4ba1f4b54254c016ddf/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="26674000177e45447a0326a6ad84612761199a13">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.0.0_7851a32c9836bd591028d0a34fb46919c16072e5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="665d21a8a069c96b4d9e8b434f5096d865b4e261">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_449004cdfcc9f63068a328d2433586cf30dbddb1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="d29714cc76b38157e3cbd034c66e1ec808eb4c19">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.0.0_290a3a85ec92399db8723d08f1ec887b05faf13a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-tasks-1.4.0_883644c077e6354cad9dbcdf77c3f9b5487827fa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_3d01831d1a343a4fc5e9f52d0126984ba6d63ba7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.0/support-annotations-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="a22d2cc94da87b254451fa8ed28afc30b4653773">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.0_747a74ff7355cc0641dabd678e2a341e050ffc40/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/Sunshine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
+        <dex dex="/Users/visheei/Desktop/Sunshine/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-21.0.2_a26a92eab1a6d92231375b45920dcdab7966cc2d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_6c732f4de6178272020c0b55766225031ad0be66/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="4ccbcda5c72027c7f7c14be9ff8640d9cb0d8da0">
+        <dex dex="/Users/visheei/Desktop/CS6235/Project/Onestop/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.0_79137e18de3d6a4e0f8a7acb70ae89e5311b9307/classes.dex" />
     </item>
 
 </items>
