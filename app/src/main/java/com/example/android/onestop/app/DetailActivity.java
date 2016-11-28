@@ -48,10 +48,6 @@ public class DetailActivity extends ActionBarActivity {
 
             startActivity(new Intent(this,SettingsActivity.class));
             return true;
-        } else if (id == R.id.action_categories) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new CategoriesFragment())
-                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
