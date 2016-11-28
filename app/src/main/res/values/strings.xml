@@ -15,6 +15,16 @@
 
     <!-- Default postal code for location preference [CHAR LIMIT=NONE] -->
     <string name="pref_location_default" translatable="false">94043</string>
+	
+	<!-- Categories Array-->
+    <string-array name="categories_array">
+        <item>Grocery</item>
+        <item>Work</item>
+        <item>Pharmacy</item>
+        <item>Meeting</item>
+        <item>Party</item>
+        <item>Outdoor</item>
+    </string-array>
 
     <string name="facebook_app_id" translatable="false">1765630923759997</string>
 
