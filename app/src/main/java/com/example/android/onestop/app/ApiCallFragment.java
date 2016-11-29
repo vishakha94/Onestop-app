@@ -66,14 +66,14 @@ public class ApiCallFragment extends Fragment {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        /*
+
         if (id == R.id.action_refresh) {
 
             updateData();
 
             return true;
         }
-*/
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -81,19 +81,6 @@ public class ApiCallFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
-        // Create some dummy data for the ListView.  Here's a sample weekly forecast
-        String[] data = {
-                "Principles UI Software - CS6455",
-                "Realtimes System CS 6235",
-                "UI Design & Eval CS 6455",
-                "Veteran's Day",
-                "Thanksgiving Day",
-                "Project Submission CS 6235",
-                "Christmas"
-        };
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
 
         // Now that we have some dummy forecast data, create an ArrayAdapter.
         // The ArrayAdapter will take data from a source (like our dummy forecast) and
@@ -103,9 +90,8 @@ public class ApiCallFragment extends Fragment {
                         getActivity(), // The current context (this activity)
                         R.layout.list_item_forecast, // The name of the layout ID.
                         R.id.list_item_forecast_textview, // The ID of the textview to populate.
-                        weekForecast);
+                        new ArrayList<String>());
 
-       
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -120,10 +106,9 @@ public class ApiCallFragment extends Fragment {
                 String forecast = mForecastAdapter.getItem(position);
                 //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
 
-                Intent textDetail = new Intent(getActivity(),DetailActivity.class);
-                textDetail.putExtra(Intent.EXTRA_TEXT,forecast);
+                Intent textDetail = new Intent(getActivity(), DetailActivity.class);
+                textDetail.putExtra(Intent.EXTRA_TEXT, forecast);
                 startActivity(textDetail);
-
 
 
             }
@@ -132,20 +117,21 @@ public class ApiCallFragment extends Fragment {
 
         return rootView;
     }
-/*
+
     private void updateData() {
         CallApiTask apiTask = new CallApiTask();
 
         //get prefernce from settings page
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String location = prefs.getString(getString(R.string.pref_location_key),
-                getString(R.string.pref_location_default));
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        //String location = prefs.getString(getString(R.string.pref_location_key),
+        //        getString(R.string.pref_location_default));
         //Repeat the above line and get boolean value
         //pref_array=Add these boolean values in an array
-
+        String permission = "true";
         /// /apiTask.execute(pref_array);
-        apiTask.execute(location);
+        apiTask.execute(permission);
     }
+
 
     @Override
     public void onStart() {
@@ -153,17 +139,58 @@ public class ApiCallFragment extends Fragment {
         updateData();
     }
 
+
     public class CallApiTask extends AsyncTask<String, Void, String[]> {
 
         private final String LOG_TAG = CallApiTask.class.getSimpleName();
 
 
-        //Implement Helper functions for JSON manupulation
+        //Implement Helper functions for JSON manipulation
+
+        private String[] getEventsDataFromJson(String forecastJsonStr)
+                throws JSONException {
+
+            // These are the names of the JSON objects that need to be extracted.
+            final String FGA_DATA = "data";
+            final String FGA_NAME = "name";
+            final String FGA_STIME = "start_time";
+            final String FGA_ETIME = "end_time";
+
+
+
+            JSONObject facebookJson = new JSONObject(forecastJsonStr);
+            JSONArray facebookArray = facebookJson.getJSONArray(FGA_DATA);
+
+          
+            Log.v(LOG_TAG,"Length of facebook array="+facebookArray.length());
+            String[] resultStrs = new String[3];
+            for (int i = 0; i < 3; i++) {
+
+                // Get the JSON object representing the event
+                JSONObject dataElement = facebookArray.getJSONObject(i);
+                String dataName = dataElement.getString(FGA_NAME);
+                String dataStartTime = dataElement.getString(FGA_STIME).substring(11,16);
+                String dataEndTime = dataElement.getString(FGA_ETIME).substring(11,16);
+
+
+                Log.v(LOG_TAG,"Facebook data array"+" "+dataName+" "+dataStartTime+" "+dataEndTime);
+
+                resultStrs[i] = dataName+" "+dataStartTime+" "+dataEndTime;
+
+            }
+
+            for (String s : resultStrs) {
+                Log.v(LOG_TAG, "Facebook data entry: " + s);
+            }
+
+            return resultStrs;
+
+        }
 
 
         //**********************************************
         @Override
-        protected String[] doInBackground(int[]... params) {
+        protected String[] doInBackground(String... params) {
 
 
             // If there's no zip code, there's nothing to look up.  Verify size of params.
@@ -200,6 +227,6 @@ public class ApiCallFragment extends Fragment {
             }
         }
     }
-
-    */
 }
+
+

@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity
         final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_home) {
-            fragment = new ForecastFragment();
+            fragment = new ApiCallFragment();
         } else if (id == R.id.nav_categories) {
             fragment = new CategoriesFragment();
         }
