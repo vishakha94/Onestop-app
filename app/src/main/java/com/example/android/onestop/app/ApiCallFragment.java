@@ -70,7 +70,8 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
  */
-public class ApiCallFragment extends Fragment {
+public class ApiCallFragment extends Fragment
+        implements EasyPermissions.PermissionCallbacks{
 
     private ArrayAdapter<String> mForecastAdapter;
 
@@ -170,6 +171,7 @@ public class ApiCallFragment extends Fragment {
     }
 
     private void updateData() {
+        mForecastAdapter.clear();
         CallApiTask apiTask = new CallApiTask();
 
         //get prefernce from settings page
@@ -273,7 +275,7 @@ public class ApiCallFragment extends Fragment {
                     final String APPID_PARAM = "access_token";
 
                     Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBANGiX3iCUglvNhWWhZBV6sbY0ACF4nPlZBZAAzZCZBWv2oO0ej0EU9ZAY0RwDZBjiismhEh7ajlbfEZAVMji00xxpFvNoGLQeJmZCmyOdoqnFQxiTwRNe0gYnfaTzWYAfgtW68sI9ra6JdyRDW6Kpm3Nnu7GLofdTVk7ZADoMLTdpZCFPYghGrx7iUZD")
+                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBALRjU3GJk65WAemDILumiaAAAPeQdzZCADnMbzrq2f1ZCa8kQb0rpJAqCKRiXbxif99jebVHuBy7v6ZCIZCHUsxaGBPRWH1jKUF3nist11TQQ3dR6IyzPxD8aFlYYxJdfvCbpzld4Yq7XLnzXtBgRMDYOZCNWv4k2Hh8sDCcMdVrfxZCu4wRkZD")
                             .build();
 
                     URL url = new URL(builtUri.toString());
@@ -346,7 +348,7 @@ public class ApiCallFragment extends Fragment {
         @Override
         protected void onPostExecute(String[] result) {
             if (result != null) {
-                mForecastAdapter.clear();
+                //mForecastAdapter.clear();
                 for (String dayForecastStr : result) {
                     mForecastAdapter.add(dayForecastStr);
                 }
@@ -627,7 +629,7 @@ public class ApiCallFragment extends Fragment {
             } else {
                 output.add(0, "Data retrieved using the Google Calendar API:");
                 Log.d("#######", TextUtils.join("\n", output));
-                mForecastAdapter.clear();
+                //mForecastAdapter.clear();
                 for (String s:output) mForecastAdapter.add(s);
                 mForecastAdapter.notifyDataSetChanged();
             }
