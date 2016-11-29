@@ -627,7 +627,6 @@ public class ApiCallFragment extends Fragment
             if (output == null || output.size() == 0) {
                 Log.d("#######", "No results returned.");
             } else {
-                output.add(0, "Data retrieved using the Google Calendar API:");
                 Log.d("#######", TextUtils.join("\n", output));
                 //mForecastAdapter.clear();
                 for (String s:output) mForecastAdapter.add(s);
