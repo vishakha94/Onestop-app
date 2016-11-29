@@ -199,21 +199,95 @@ public class ApiCallFragment extends Fragment {
             }
 
 
-            //unpack the pref_array to see which APIs to call
-            //Suppose 1 1 0: Call GMAIL FACEBOOK EVERNOTE
+            if(params[0]=="true"){
 
-            //if pref_array[0] is true call gmailAPI()
-            //try catch block
-            //do an api call
-            //get json
-            //use helper functions to read it if required
-            //store in DB
-            //pass to adapter to be populated through onpostexecute
-            //if pref_array[1] is true call facebookAPI()
-            // if pref_array[2] is true call evernoteAPI()
+
+                HttpURLConnection urlConnection = null;
+                BufferedReader reader = null;
+
+                // Will contain the raw JSON response as a string.
+                String forecastJsonStr = null;
 
 
 
+
+                try {
+                    // Construct the URL for the OpenWeatherMap query
+                    // Possible parameters are avaiable at OWM's forecast API page, at
+                    // http://openweathermap.org/API#forecast
+                    final String FORECAST_BASE_URL =
+                            "https://graph.facebook.com/v2.8/794961210523337/events?";
+                    final String APPID_PARAM = "access_token";
+
+                    Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBANGiX3iCUglvNhWWhZBV6sbY0ACF4nPlZBZAAzZCZBWv2oO0ej0EU9ZAY0RwDZBjiismhEh7ajlbfEZAVMji00xxpFvNoGLQeJmZCmyOdoqnFQxiTwRNe0gYnfaTzWYAfgtW68sI9ra6JdyRDW6Kpm3Nnu7GLofdTVk7ZADoMLTdpZCFPYghGrx7iUZD")
+                            .build();
+
+                    URL url = new URL(builtUri.toString());
+
+                    Log.v(LOG_TAG, "Built URI " + builtUri.toString());
+
+
+                    // Create the request to OpenWeatherMap, and open the connection
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestMethod("GET");
+                    urlConnection.connect();
+
+                    // Read the input stream into a String
+                    InputStream inputStream = urlConnection.getInputStream();
+                    StringBuffer buffer = new StringBuffer();
+                    if (inputStream == null) {
+                        // Nothing to do.
+                        return null;
+                    }
+                    reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                        // But it does make debugging a *lot* easier if you print out the completed
+                        // buffer for debugging.
+                        buffer.append(line + "\n");
+                    }
+
+                    if (buffer.length() == 0) {
+                        // Stream was empty.  No point in parsing.
+                        return null;
+                    }
+
+                    forecastJsonStr = buffer.toString();
+                    Log.v(LOG_TAG, "Facebook JSON String:" + forecastJsonStr);
+
+                } catch (IOException e) {
+                    Log.e(LOG_TAG, "Error ", e);
+                    // If the code didn't successfully get the weather data, there's no point in attemping
+                    // to parse it.
+                    return null;
+                } finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+                    }
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (final IOException e) {
+                            Log.e(LOG_TAG, "Error closing stream", e);
+                        }
+                    }
+                }
+                try {
+                    return getEventsDataFromJson(forecastJsonStr);
+                } catch (JSONException e) {
+                    Log.e(LOG_TAG, e.getMessage(), e);
+                    e.printStackTrace();
+                }
+
+
+
+            }
+
+
+            return null;
         }
 
         @Override
