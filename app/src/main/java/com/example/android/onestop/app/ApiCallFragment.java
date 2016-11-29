@@ -66,13 +66,14 @@ public class ApiCallFragment extends Fragment {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        /*
         if (id == R.id.action_refresh) {
 
             updateData();
 
             return true;
         }
-
+*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -81,7 +82,18 @@ public class ApiCallFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        //List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
+
+        // Create some dummy data for the ListView.  Here's a sample weekly forecast
+        String[] data = {
+                "Principles UI Software - CS6455",
+                "Realtimes System CS 6235",
+                "UI Design & Eval CS 6455",
+                "Veteran's Day",
+                "Thanksgiving Day",
+                "Project Submission CS 6235",
+                "Christmas"
+        };
+        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
 
         // Now that we have some dummy forecast data, create an ArrayAdapter.
         // The ArrayAdapter will take data from a source (like our dummy forecast) and
@@ -91,7 +103,9 @@ public class ApiCallFragment extends Fragment {
                         getActivity(), // The current context (this activity)
                         R.layout.list_item_forecast, // The name of the layout ID.
                         R.id.list_item_forecast_textview, // The ID of the textview to populate.
-                        new ArrayList<String>());
+                        weekForecast);
+
+       
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -118,7 +132,7 @@ public class ApiCallFragment extends Fragment {
 
         return rootView;
     }
-
+/*
     private void updateData() {
         CallApiTask apiTask = new CallApiTask();
 
@@ -166,7 +180,7 @@ public class ApiCallFragment extends Fragment {
             //do an api call
             //get json
             //use helper functions to read it if required
-            //store in DB 
+            //store in DB
             //pass to adapter to be populated through onpostexecute
             //if pref_array[1] is true call facebookAPI()
             // if pref_array[2] is true call evernoteAPI()
@@ -186,4 +200,6 @@ public class ApiCallFragment extends Fragment {
             }
         }
     }
+
+    */
 }
