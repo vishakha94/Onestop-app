@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "21.1.2"
     defaultConfig {
-        applicationId "com.example.android.sunshine.app"
+        applicationId "com.example.android.onestop.app"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -30,4 +30,14 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
+
+    // google api
+    compile 'com.google.android.gms:play-services-auth:9.0.2'
+    compile 'pub.devrel:easypermissions:0.1.5'
+    compile('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    compile('com.google.apis:google-api-services-calendar:v3-rev225-1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
 }
