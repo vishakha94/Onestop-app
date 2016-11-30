@@ -75,8 +75,8 @@ public class ApiCallFragment extends Fragment
         implements EasyPermissions.PermissionCallbacks{
 
     private ArrayAdapter<String> mForecastAdapter;
-
-    GoogleAccountCredential mCredential;
+    private DataBaseHelper dbHelper;
+    private GoogleAccountCredential mCredential;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
@@ -133,7 +133,7 @@ public class ApiCallFragment extends Fragment
                 .setBackOff(new ExponentialBackOff());
 
         // ---------------------------------------------------------------------
-
+        dbHelper = new DataBaseHelper(getActivity().getApplicationContext());
 
         // Now that we have some dummy forecast data, create an ArrayAdapter.
         // The ArrayAdapter will take data from a source (like our dummy forecast) and
@@ -611,6 +611,21 @@ public class ApiCallFragment extends Fragment
             List<Event> items = events.getItems();
 
             for (Event event : items) {
+                // test whether the event has been inserted
+                Boolean isInserted = false;
+                List<OneStopEvent> onestopEvents = dbHelper.getAllEvents();
+                String eName = event.getSummary(); // Original event name from Google calendar
+
+                for (OneStopEvent e : onestopEvents) {
+                    if (e.getEvent_name().equals(eName)) {
+                        // update existed event
+                        dbHelper.updateEvent(new OneStopEvent(event));
+                        isInserted = true;
+                    }
+                }
+                // insert new
+                if (!isInserted) dbHelper.insertEvent(new OneStopEvent(event));
+
                 DateTime start = event.getStart().getDateTime();
                 if (start == null) {
                     // All-day events don't have start times, so just use
