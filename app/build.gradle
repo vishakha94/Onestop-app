@@ -2,13 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.android.onestop.app"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -16,7 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 }
 
@@ -32,7 +39,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
 
     // google api
-    compile 'com.google.android.gms:play-services-auth:9.0.2'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
     compile 'pub.devrel:easypermissions:0.1.5'
     compile('com.google.api-client:google-api-client-android:1.22.0') {
         exclude group: 'org.apache.httpcomponents'
@@ -40,4 +47,8 @@ dependencies {
     compile('com.google.apis:google-api-services-calendar:v3-rev225-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
+
+    // Yelp
+    compile 'com.yelp.clientlib:yelp-android:2.0.0'
+    compile 'com.google.android.gms:play-services-location:10.0.1'
 }

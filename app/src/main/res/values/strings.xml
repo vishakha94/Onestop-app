@@ -31,4 +31,11 @@
 
     <string name="facebook_app_id" translatable="false">1765630923759997</string>
 
+    <!-- Yelp API related value -->
+    <string name="consumer_key">2QhzAmQmaRN5zmcUZlUTbQ</string>
+    <string name="consumer_secret">H19PnSr-Lh8xKRymF723B1U6O1w</string>
+    <string name="token">qEWzQToQ6hQ4ZTnhMZek_cQ1fyiPTNbO</string>
+    <string name="token_secret">EFCg_vQKekoK6u9k6TCH4nm9rHc</string>
+    <string name="search_radius">500</string>
+
 </resources>

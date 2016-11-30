@@ -108,6 +108,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public int updateEvent (OneStopEvent e) {
+        e.print();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EVENT_COLUMN_EVENT_NAME, e.getEvent_name());
@@ -119,8 +120,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         values.put(EVENT_COLUMN_ADDR, e.getAddress());
         values.put(EVENT_COLUMN_LAT, e.getLatitude());
         values.put(EVENT_COLUMN_LNG, e.getLongitude());
-
-       return db.update(TABLE_EVENT, values, KEY_ID + " = ?", new String[] {Integer.toString(e.getId())});
+        Log.d("13452345236",Integer.toString(e.getId()));
+        return db.update(TABLE_EVENT, values, KEY_ID + " = ?", new String[] {Integer.toString(e.getId())});
     }
 
     public int deleteEvent (int id) {
@@ -133,7 +134,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return db.delete(TABLE_EVENT, "", new String[] {});
     }
 
-    public int deleteAllEventsBySouce (String source) {
+    public int deleteAllEventsBySource (String source) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_EVENT, EVENT_COLUMN_SOURCE + " = ?", new String[] { source });
 
@@ -160,13 +161,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return e;
     }
 
+    public OneStopEvent getEventByName (String eName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_EVENT + " WHERE " + EVENT_COLUMN_EVENT_NAME + " = '" + eName + "'", null);
+
+        if (cursor != null) cursor.moveToFirst();
+
+        OneStopEvent e = new OneStopEvent();
+        e.setId(cursor.getInt(cursor.getColumnIndex(this.KEY_ID)));
+        e.setEvent_name(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_EVENT_NAME)));
+        e.setSource(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_SOURCE)));
+        e.setStart_time(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_START_TIME)));
+        e.setEnd_time(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_END_TIME)));
+        e.setCategory(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_CATEGORY)));
+        e.setSpot_name(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_SPOT_NAME)));
+        e.setAddress(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_ADDR)));
+        e.setLatitude(cursor.getDouble(cursor.getColumnIndex(this.EVENT_COLUMN_LAT)));
+        e.setLongitude(cursor.getDouble(cursor.getColumnIndex(this.EVENT_COLUMN_LNG)));
+
+        return e;
+    }
+
     public List<OneStopEvent> getAllEvents() {
         List<OneStopEvent> oneStopEvents = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
-                this.TABLE_EVENT,
-                null, null, null, null, null, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_EVENT, null);
         cursor.moveToFirst(); // redirect to the first entry
 
         while (cursor.isAfterLast() == false) {
@@ -189,12 +209,47 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return oneStopEvents;
     }
 
-    public List<OneStopEvent> getAllCluesBySource (String source) {
+    public List<OneStopEvent> getAllEventsBySource (String source) {
         List<OneStopEvent> oneStopEvents = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " +
                 TABLE_EVENT + " WHERE " + EVENT_COLUMN_SOURCE + " = " + source ;
+
+
+        Log.d("database", selectQuery);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst(); // redirect to the first entry
+
+        while (cursor.isAfterLast() == false) {
+            OneStopEvent e = new OneStopEvent();
+            e.setId(cursor.getInt(cursor.getColumnIndex(this.KEY_ID)));
+            e.setEvent_name(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_EVENT_NAME)));
+            e.setSource(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_SOURCE)));
+            e.setStart_time(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_START_TIME)));
+            e.setEnd_time(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_END_TIME)));
+            e.setCategory(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_CATEGORY)));
+            e.setSpot_name(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_SPOT_NAME)));
+            e.setAddress(cursor.getString(cursor.getColumnIndex(this.EVENT_COLUMN_ADDR)));
+            e.setLatitude(cursor.getDouble(cursor.getColumnIndex(this.EVENT_COLUMN_LAT)));
+            e.setLongitude(cursor.getDouble(cursor.getColumnIndex(this.EVENT_COLUMN_LNG)));
+
+            oneStopEvents.add(e);
+            cursor.moveToNext();
+        }
+
+        Log.d("database", "#### Find oneStopEvents by source: find " + oneStopEvents.size());
+
+        return oneStopEvents;
+    }
+
+    public List<OneStopEvent> getAllEventsByCategory (String category) {
+        List<OneStopEvent> oneStopEvents = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " +
+                TABLE_EVENT + " WHERE " + EVENT_COLUMN_CATEGORY + " = '" + category + "'";
 
 
         Log.d("database", selectQuery);

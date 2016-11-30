@@ -8,16 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Zixiao on 11/27/2016.
  */
 
 public class CategoriesFragment extends Fragment {
-    private ListView categoryListView;
-    private String[] mCategoriesList;
-    private ArrayAdapter<String> adapter;
+    private ExpandableListAdapter adapter;
+    private ExpandableListView categoryExpListView;
+    private List<String> mCategoriesList;
+    private HashMap<String, List<String>> categoryToEventsMap;
+    private DataBaseHelper dbHelper;
 
     @Nullable
     @Override
@@ -29,18 +37,25 @@ public class CategoriesFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Handle navigation view item clicks here.
-        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        // database connect
+        dbHelper = new DataBaseHelper(getActivity().getApplicationContext());
 
-        mCategoriesList = getResources().getStringArray(R.array.categories_array);
+        // date setup
+        mCategoriesList = Arrays.asList(getResources().getStringArray(R.array.categories_array));
+        categoryToEventsMap = new HashMap<String, List<String>>();
+        for (String category : mCategoriesList) {
+            List<String> tmp = new ArrayList<>();
+            List<OneStopEvent> events = dbHelper.getAllEventsByCategory(category);
+            for (OneStopEvent e : events) tmp.add(e.getEvent_name());
+            categoryToEventsMap.put(category, tmp);
+        }
 
         // Categories List stuff handling
-        categoryListView = (ListView) view.findViewById(R.id.categories);
-        adapter = new ArrayAdapter<>(getActivity(),
-                R.layout.list_item_categories,
-                R.id.list_item_categories_textview,
-                mCategoriesList);
-        categoryListView.setAdapter(adapter);
+        categoryExpListView = (ExpandableListView) view.findViewById(R.id.categories);
+        adapter = new ExpandableListAdapter(getActivity(),
+                mCategoriesList,
+                categoryToEventsMap);
+        categoryExpListView.setAdapter(adapter);
 
 
     }
