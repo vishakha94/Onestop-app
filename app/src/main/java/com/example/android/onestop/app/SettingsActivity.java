@@ -17,6 +17,11 @@ import android.preference.PreferenceManager;
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
+    // key value corresponding to value defined in pref_general.xml
+    public static String PREF_KEY_FACEBOOK = "fbPref";
+    public static String PREF_KEY_GOOGLECALENDAR = "gmailPref";
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

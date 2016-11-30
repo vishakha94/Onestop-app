@@ -60,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.text.SimpleDateFormat;
+import java.util.Set;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -171,20 +172,27 @@ public class ApiCallFragment extends Fragment
     }
 
     private void updateData() {
+        // Clear list view adapter for all events
         mForecastAdapter.clear();
+
+        // Create new Facebook event
         CallApiTask apiTask = new CallApiTask();
 
-        //get prefernce from settings page
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        //String location = prefs.getString(getString(R.string.pref_location_key),
-        //        getString(R.string.pref_location_default));
-        //Repeat the above line and get boolean value
-        //pref_array=Add these boolean values in an array
-        String permission = "true";
-        /// /apiTask.execute(pref_array);
-        apiTask.execute(permission);
+        // get prefernce from settings page
+        SharedPreferences sharedprefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (sharedprefs.getBoolean(SettingsActivity.PREF_KEY_FACEBOOK, true)) {
+            //etString(R.string.pref_location_default));
+            //Repeat the above line and get boolean value
+            //pref_array=Add these boolean values in an array
+            String permission = "true";
+            /// /apiTask.execute(pref_array);
+            apiTask.execute(permission);
+        }
+        if (sharedprefs.getBoolean(SettingsActivity.PREF_KEY_GOOGLECALENDAR, true)) {
+            getResultsFromApi();
+        }
 
-        getResultsFromApi();
+
     }
 
 
@@ -271,11 +279,11 @@ public class ApiCallFragment extends Fragment
                     // Possible parameters are avaiable at OWM's forecast API page, at
                     // http://openweathermap.org/API#forecast
                     final String FORECAST_BASE_URL =
-                            "https://graph.facebook.com/v2.8/794961210523337/events?";
+                            "https://graph.facebook.com/v2.8/695638587268762/events?";
                     final String APPID_PARAM = "access_token";
 
                     Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBALRjU3GJk65WAemDILumiaAAAPeQdzZCADnMbzrq2f1ZCa8kQb0rpJAqCKRiXbxif99jebVHuBy7v6ZCIZCHUsxaGBPRWH1jKUF3nist11TQQ3dR6IyzPxD8aFlYYxJdfvCbpzld4Yq7XLnzXtBgRMDYOZCNWv4k2Hh8sDCcMdVrfxZCu4wRkZD")
+                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBANDOtP5Mr7OEm8g4om6EYPejyxTmrYPN0cTkCrxfU2KJuulwEHiKfqcp0KjDIXc6FgdME4gHYijVgxJ3TIyEK1DkvTp0ejUWVqbHFAkHiZCal6i16KOKoJHOlXTqoEr40PsKDtPq7AnxWqrTvNyxlEeRVGwZDZD")
                             .build();
 
                     URL url = new URL(builtUri.toString());
