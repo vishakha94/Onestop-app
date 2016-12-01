@@ -191,10 +191,10 @@ public class ApiCallFragment extends Fragment
         /// /apiTask.execute(pref_array);
         apiTask.execute(permission);
 
-        //getResultsFromApi();
+        getResultsFromApi();
     }
 
-    public static String formateDateFromstring(String inputFormat, String outputFormat, String inputDate){
+    public static String formatDateFromstring(String inputFormat, String outputFormat, String inputDate){
 
         Date parsed = null;
         String outputDate = "";
@@ -223,7 +223,7 @@ public class ApiCallFragment extends Fragment
         try {
             dt = t_input.parse(inputTime);
             outputTime=t_output.format(dt);
-            System.out.println("Time Display: " + outputTime);
+            //System.out.println("Time Display: " + outputTime);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
@@ -294,16 +294,16 @@ public class ApiCallFragment extends Fragment
 
                         if(dataElement.has(FGA_STIME)) {
                             dataTimeStampStart = dataElement.getString(FGA_STIME);
-                            dataSDate=formateDateFromstring("yyyy-MM-dd","MMM dd, yyyy",dataTimeStampStart.substring(0,10));
+                            dataSDate=formatDateFromstring("yyyy-MM-dd","MMM dd, yyyy",dataTimeStampStart.substring(0,10));
 
                             dataStartTime = formatTimeFromString("hh:mm:ss","hh:mm a",dataTimeStampStart.substring(11,19));
-                            //System.out.println(dataStartTime);
+
                             if(dataElement.has(FGA_ETIME)) {
                                 dataTimeStampEnd = dataElement.getString(FGA_ETIME);
-                                //dataEDate=formateDateFromstring("hh:mm:ss","hh:mm a",dataTimeStampEnd.substring(0,10));
-                                //System.out.println(dataEDate);
+                                //dataEDate=formatDateFromstring("hh:mm:ss","hh:mm a",dataTimeStampEnd.substring(0,10));
+
                                 dataEndTime = formatTimeFromString("hh:mm:ss","hh:mm a",dataElement.getString(FGA_ETIME).substring(11,19));
-                                //System.out.println("Data End Time:" + dataEndTime);
+
                             } else dataEndTime = "12:00 AM";
 
                         } else {
@@ -362,15 +362,13 @@ public class ApiCallFragment extends Fragment
 
 
                 try {
-                    // Construct the URL for the OpenWeatherMap query
-                    // Possible parameters are avaiable at OWM's forecast API page, at
-                    // http://openweathermap.org/API#forecast
+
                     final String FORECAST_BASE_URL =
                             "https://graph.facebook.com/v2.8/794961210523337/events?";
                     final String APPID_PARAM = "access_token";
 
                     Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBAHqkp1uuOmFOoFsQt60DywyYlOqkm5CXPmZCNhq6B9qyqKgZAiiHgckn4rmDZBHzcnDsjjaefOaNrmDh0cxFRL0XZC9phmsRKcdBZBzuwylEZBTNPEHQZAkj3nmWPK95yS6YFVK2yxoBb8l7qCoRyZAtVhB9Aw3ahiqiQPmjl2TcidZB9IfYkaQAZD")
+                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBAFYdjaBO3CZB6NVSJJXRDJbG0beZAcSN7lG7o7xmexZBmqitahEgLje00bwhUOmdTC89Dlsb1SVYhZCTwIoKcGQiDAnryV9p1p2Kza2uSlo6OIetE2cXi98mVOS9o3Mke13D5qGPP8JpRixhzaZC0VF59iBHcJgZDZD")
                             .build();
 
                     URL url = new URL(builtUri.toString());
@@ -406,7 +404,7 @@ public class ApiCallFragment extends Fragment
                     }
 
                     forecastJsonStr = buffer.toString();
-                    Log.v(LOG_TAG, "Facebook JSON String:" + forecastJsonStr);
+                    //Log.v(LOG_TAG, "Facebook JSON String:" + forecastJsonStr);
 
                 } catch (IOException e) {
                     Log.e(LOG_TAG, "Error ", e);
@@ -688,26 +686,37 @@ public class ApiCallFragment extends Fragment
          */
         private List<String> getDataFromApi() throws IOException {
             // List the next 10 events from the primary calendar.
+            String dataName="No event Name";
+            String dataDate;
+            String dataStartTime;
+            String dataEndTime;
+            String timeStampG;
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<>();
             Events events = mService.events().list("primary")
-                    .setMaxResults(10)
+                    .setMaxResults(eventLimit)
                     .setTimeMin(now)
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
                     .execute();
             List<Event> items = events.getItems();
 
+
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();
-                if (start == null) {
-                    // All-day events don't have start times, so just use
-                    // the start date.
-                    start = event.getStart().getDate();
+                DateTime end = event.getEnd().getDateTime();
+
+                if ( start == null) {
+                     start = event.getStart().getDate();
                 }
-                eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start));
+                timeStampG=start.toString();
+                dataDate=formatDateFromstring("yyyy-MM-dd","MMM dd, yyyy",timeStampG.substring(0,10));
+                dataStartTime=formatTimeFromString("hh:mm:ss","hh:mm a",timeStampG.substring(11,19));
+                dataName=event.getSummary();
+                eventStrings.add(String.format("%s \n %s                       %s", dataName, dataDate, dataStartTime));
             }
+
+            System.out.println("Result from get data from api"+eventStrings+"\n");
             return eventStrings;
         }
 
