@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textSize="20dp"
-    android:padding="10dp">
+    android:orientation="horizontal"
+    android:padding="5dip" >
 
-</TextView>
+    <!--
+        Place Brief info showing on the screen:
+        1. location name
+        2. distance
+
+    -->
+
+    <!-- Title Of Song-->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Name"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"/>
+
+    <!-- Artist Name -->
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:textColor="#343434"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:layout_marginTop="1dip"
+        android:layout_alignParentLeft="true"
+        android:text="No distance" />
+
+    <!-- Rightend Arrow -->
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+
+</RelativeLayout>

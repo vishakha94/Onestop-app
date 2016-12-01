@@ -1,13 +1,16 @@
 package com.example.android.onestop.app;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ShareCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,6 +34,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -76,8 +80,8 @@ public class YelpSearchActivity extends Activity
     protected TextView mLongitudeTextView;
     private ListView businessListView;
 
-    private String[] mBusinessList;
-    private ArrayAdapter<String> adapter;
+    private List<Business> mBusinessList;
+    private SearchResultAdapter adapter;
 
     /**
      * Time when the location was updated represented as a String.
@@ -105,7 +109,7 @@ public class YelpSearchActivity extends Activity
         longitude = -84.3963;
         mRequestingLocationUpdates = false;
         mLastUpdateTime = "";
-        mBusinessList = new String[]{};
+        mBusinessList = new ArrayList<>();
 
 
         final Bundle args = new Bundle();
@@ -179,8 +183,9 @@ public class YelpSearchActivity extends Activity
         Map<String, String> params = new HashMap<>();
 
         // general params
-        params.put("radius_filter", this.getString(R.string.search_radius)); // max: 25 miles
-        params.put("limit", "3"); // number of business result
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        params.put("radius_filter", prefs.getString(SettingsActivity.PREF_KEY_SEARCH_RADIUS, Integer.toString(R.string.search_radius))); // max: 25 miles
+        params.put("limit", prefs.getString(SettingsActivity.PREF_KEY_SEARCH_MAX, Integer.toString(R.string.search_result_max))); // number of business result
         params.put("sort", "1"); // 0: best matched; 1: distance; 2:highest rated*/
         // TODO: add 'category_filter' param according to users input: categories
 
@@ -252,10 +257,7 @@ public class YelpSearchActivity extends Activity
                 Call<SearchResponse> call = yelpAPI.search(coordinate, ps);
                 try {
                     SearchResponse response = call.execute().body();
-                    ArrayList<Business> businesses = response.businesses();
-                    ArrayList<String> bs = new ArrayList<String>();
-                    for (Business b : businesses) bs.add(b.name());
-                    mBusinessList = bs.toArray(new String[bs.size()]);
+                    mBusinessList = response.businesses();
                     return Integer.toString(response.total());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -266,7 +268,7 @@ public class YelpSearchActivity extends Activity
             @Override
             protected void onPostExecute(String result) {
                 TextView mSearchCountTextView = (TextView) findViewById(R.id.search_count_text);
-                adapter = new ArrayAdapter<>(YelpSearchActivity.this, R.layout.list_item_yelpsearch, mBusinessList);
+                adapter = new SearchResultAdapter(YelpSearchActivity.this, mBusinessList, latitude, longitude);
                 businessListView.setAdapter(adapter);
                 mSearchCountTextView.setText("Solution Found: " + result);
             }

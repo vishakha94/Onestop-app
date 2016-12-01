@@ -37,5 +37,6 @@
     <string name="token">qEWzQToQ6hQ4ZTnhMZek_cQ1fyiPTNbO</string>
     <string name="token_secret">EFCg_vQKekoK6u9k6TCH4nm9rHc</string>
     <string name="search_radius">500</string>
+    <string name="search_result_max">10</string>
 
 </resources>

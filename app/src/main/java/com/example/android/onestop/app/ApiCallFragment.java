@@ -283,7 +283,7 @@ public class ApiCallFragment extends Fragment
                     final String APPID_PARAM = "access_token";
 
                     Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBAHL1WJITTL7BFR9HoG2Jm7ydjfLHjERFuHydRzPOepyQfXqK50lrGukZAbFDviIZCvbu6QNCHlNzn1p7eggn7qMOoquhO0mpz9efqZAmHka6XtWaNpojmEyOinISkZBmTgHdqoHsVSONd1dUf3CKZArE3Bh1rSQZDZD")
+                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBADD1M7XCMI8xnD4jsrmBE97Cn24HduN5ZBPD9qSZBOvDxC8na68JqqOVfAOZCg534tXT720tdwpDErVsazS85o5IW1hbH8jlZAgf1Id6hT7HmsXQu9W5azNWZADdKDTl80A2HyOggiAXgvljiSIhqCQcm9iyvwwZDZD")
                             .build();
 
                     URL url = new URL(builtUri.toString());

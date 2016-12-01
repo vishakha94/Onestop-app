@@ -87,6 +87,19 @@
 
 
 
-
+    <PreferenceCategory
+        android:title="Yelp Search"
+        android:key="pref_yelp_search_settings">
+        <EditTextPreference
+            android:key="pref_search_radius"
+            android:title="Radius"
+            android:summary="@string/search_radius"
+            android:defaultValue="@string/search_radius"/>
+        <EditTextPreference
+            android:key="pref_search_result_max"
+            android:title="Max Search Result"
+            android:summary="@string/search_result_max"
+            android:defaultValue="@string/search_result_max"/>
+    </PreferenceCategory>
 
 </PreferenceScreen>
