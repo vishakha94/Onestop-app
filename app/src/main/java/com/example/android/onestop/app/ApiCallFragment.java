@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.widget.ListView;
 //import android.widget.Toast;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import java.text.SimpleDateFormat;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -59,6 +61,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.IllegalFormatPrecisionException;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -75,7 +79,7 @@ public class ApiCallFragment extends Fragment
 
     static int eventLimit=12;
     private ArrayAdapter<String> mEventNameAdapter;
-
+    //private final String LOG_TAG = ApiCallFragment.class.getSimpleName();
 
     GoogleAccountCredential mCredential;
 
@@ -187,7 +191,43 @@ public class ApiCallFragment extends Fragment
         /// /apiTask.execute(pref_array);
         apiTask.execute(permission);
 
-        getResultsFromApi();
+        //getResultsFromApi();
+    }
+
+    public static String formateDateFromstring(String inputFormat, String outputFormat, String inputDate){
+
+        Date parsed = null;
+        String outputDate = "";
+
+        SimpleDateFormat df_input = new SimpleDateFormat(inputFormat);
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat);
+
+        try {
+            parsed = df_input.parse(inputDate);
+            outputDate = df_output.format(parsed);
+
+        } catch (java.text.ParseException e) {
+            Log.e("DateFormat", "ParseException - dateFormat");
+        }
+
+        return outputDate;
+
+    }
+
+    public static String formatTimeFromString(String inputFormat, String outputFormat, String inputTime){
+        SimpleDateFormat t_input = new SimpleDateFormat(inputFormat);
+        SimpleDateFormat t_output = new SimpleDateFormat(outputFormat);
+        Date dt;
+        String outputTime = null;
+
+        try {
+            dt = t_input.parse(inputTime);
+            outputTime=t_output.format(dt);
+            System.out.println("Time Display: " + outputTime);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return outputTime;
     }
 
 
@@ -214,17 +254,27 @@ public class ApiCallFragment extends Fragment
             final String FGA_NAME = "name";
             final String FGA_STIME = "start_time";
             final String FGA_ETIME = "end_time";
+            final String FGA_LOCATION = "location";
+            final String FGA_CITY = "city";
+            final String FGA_COUNTRY = "country";
+            final String FGA_LAT = "latitude";
+            final String FGA_LONG = "longitude";
+            final String FGA_STATE = "state";
+            final String FGA_STREET = "street";
+            final String FGA_ZIP = "zip";
             String dataName;
-            String dataDate;
+            String dataSDate;
+            String dataEDate;
             String dataLocation;
             String dataStartTime;
             String dataEndTime;
+            String dataTimeStampStart;
+            String dataTimeStampEnd;
 
             JSONObject dataJson = new JSONObject(accountJsonStr);
             JSONArray dataArray = dataJson.getJSONArray(FGA_DATA);
 
 
-            //Log.v(LOG_TAG,"Length of array="+dataArray.length());
             //Limit to 5
             int lengthDataArray=dataArray.length();
             if (lengthDataArray>eventLimit) lengthDataArray=eventLimit;
@@ -243,19 +293,28 @@ public class ApiCallFragment extends Fragment
 
 
                         if(dataElement.has(FGA_STIME)) {
-                            dataStartTime = dataElement.getString(FGA_STIME).substring(11,16);
+                            dataTimeStampStart = dataElement.getString(FGA_STIME);
+                            dataSDate=formateDateFromstring("yyyy-MM-dd","MMM dd, yyyy",dataTimeStampStart.substring(0,10));
+
+                            dataStartTime = formatTimeFromString("hh:mm:ss","hh:mm a",dataTimeStampStart.substring(11,19));
+                            //System.out.println(dataStartTime);
                             if(dataElement.has(FGA_ETIME)) {
-                                dataEndTime = dataElement.getString(FGA_ETIME).substring(11,16);
+                                dataTimeStampEnd = dataElement.getString(FGA_ETIME);
+                                //dataEDate=formateDateFromstring("hh:mm:ss","hh:mm a",dataTimeStampEnd.substring(0,10));
+                                //System.out.println(dataEDate);
+                                dataEndTime = formatTimeFromString("hh:mm:ss","hh:mm a",dataElement.getString(FGA_ETIME).substring(11,19));
                                 //System.out.println("Data End Time:" + dataEndTime);
-                            } else dataEndTime = "00:00";
+                            } else dataEndTime = "12:00 AM";
 
-                        } else {dataStartTime = "All Day"; dataEndTime="";}
+                        } else {
+                                dataSDate="All Day";
+                                dataStartTime = "";
+                                dataEndTime="";}
 
-
-                        //Write to Database
+                        //Get time proper format
 
                         eventDetails[i][0]=dataName;
-                        eventDetails[i][1]="\n"+"Test Date"+" "+"from"+" "+dataStartTime+"-"+dataEndTime;
+                        eventDetails[i][1]="\n"+dataSDate+" "+"    "+" "+dataStartTime+"-"+dataEndTime;
                         eventDetails[i][2]="xyz";
                         
 
@@ -311,7 +370,7 @@ public class ApiCallFragment extends Fragment
                     final String APPID_PARAM = "access_token";
 
                     Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBALRjU3GJk65WAemDILumiaAAAPeQdzZCADnMbzrq2f1ZCa8kQb0rpJAqCKRiXbxif99jebVHuBy7v6ZCIZCHUsxaGBPRWH1jKUF3nist11TQQ3dR6IyzPxD8aFlYYxJdfvCbpzld4Yq7XLnzXtBgRMDYOZCNWv4k2Hh8sDCcMdVrfxZCu4wRkZD")
+                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBAHqkp1uuOmFOoFsQt60DywyYlOqkm5CXPmZCNhq6B9qyqKgZAiiHgckn4rmDZBHzcnDsjjaefOaNrmDh0cxFRL0XZC9phmsRKcdBZBzuwylEZBTNPEHQZAkj3nmWPK95yS6YFVK2yxoBb8l7qCoRyZAtVhB9Aw3ahiqiQPmjl2TcidZB9IfYkaQAZD")
                             .build();
 
                     URL url = new URL(builtUri.toString());
@@ -319,7 +378,7 @@ public class ApiCallFragment extends Fragment
                     Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
 
-                    // Create the request to OpenWeatherMap, and open the connection
+                    // Create the request to the API, and open the connection
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
                     urlConnection.connect();
