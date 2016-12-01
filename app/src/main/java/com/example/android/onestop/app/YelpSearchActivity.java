@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -40,6 +41,8 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * Created by Zixiao on 11/23/2016.
@@ -243,9 +246,11 @@ public class YelpSearchActivity extends Activity
                         getApplicationContext().getString(R.string.token_secret));
                 yelpAPI = apiFactory.createAPI();
 
+                SharedPreferences sharedprefs = PreferenceManager.getDefaultSharedPreferences(YelpSearchActivity.this);
+
                 // Set searching params
                 Map<String, String> ps = new HashMap<>();
-                ps.put("radius_filter", "300"); // max: 40000 meters
+                ps.put("radius_filter", sharedprefs.getString(SettingsActivity.PREF_KEY_SEARCH_RADIUS ,getString(R.string.search_result_max))); // max: 40000 meters
                 //ps.put("limit", "3"); // number of business result
                 //ps.put("sort", "1"); // 0: best matched; 1: distance; 2:highest rated*/
 
@@ -268,7 +273,18 @@ public class YelpSearchActivity extends Activity
             @Override
             protected void onPostExecute(String result) {
                 TextView mSearchCountTextView = (TextView) findViewById(R.id.search_count_text);
-                adapter = new SearchResultAdapter(YelpSearchActivity.this, mBusinessList, latitude, longitude);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(YelpSearchActivity.this );
+                int search_max;
+                try {
+                    search_max = parseInt(prefs.getString(SettingsActivity.PREF_KEY_SEARCH_MAX, getString(R.string.search_result_max)));
+                } catch (Exception e) {
+                    search_max = 10;
+                }
+                if (mBusinessList.size() <= search_max) {
+                    adapter = new SearchResultAdapter(YelpSearchActivity.this, mBusinessList, latitude, longitude);
+                } else {
+                    adapter = new SearchResultAdapter(YelpSearchActivity.this, mBusinessList.subList(0, search_max), latitude, longitude);
+                }
                 businessListView.setAdapter(adapter);
                 mSearchCountTextView.setText("Solution Found: " + result);
             }

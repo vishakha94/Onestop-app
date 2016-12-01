@@ -48,7 +48,7 @@ public class SettingsActivity extends PreferenceActivity
         prefSearchRadius.setOnPreferenceChangeListener(this);
         prefSearchRadius.setSummary(settings.getString(PREF_KEY_SEARCH_RADIUS, Integer.toString(R.string.search_radius)));
         prefSearchResultMax.setOnPreferenceChangeListener(this);
-        prefSearchRadius.setSummary(settings.getString(PREF_KEY_SEARCH_MAX, Integer.toString(R.string.search_result_max)));
+        prefSearchResultMax.setSummary(settings.getString(PREF_KEY_SEARCH_MAX, Integer.toString(R.string.search_result_max)));
 
     }
 
