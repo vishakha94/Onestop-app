@@ -1,4 +1,7 @@
 
+//Google has a pretty good service for helper functions like settimenow etc
+//For other services, writing a manual one :(
+
 package com.example.android.onestop.app;
 
 import android.Manifest;
@@ -24,11 +27,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.text.format.Time;
 //import android.widget.Toast;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -59,7 +60,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.text.SimpleDateFormat;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -73,7 +73,9 @@ import static android.app.Activity.RESULT_OK;
 public class ApiCallFragment extends Fragment
         implements EasyPermissions.PermissionCallbacks{
 
-    private ArrayAdapter<String> mForecastAdapter;
+    static int eventLimit=12;
+    private ArrayAdapter<String> mEventNameAdapter;
+
 
     GoogleAccountCredential mCredential;
 
@@ -133,29 +135,30 @@ public class ApiCallFragment extends Fragment
 
         // ---------------------------------------------------------------------
 
-
-        // Now that we have some dummy forecast data, create an ArrayAdapter.
-        // The ArrayAdapter will take data from a source (like our dummy forecast) and
+        // The ArrayAdapter will take data from a source  and
         // use it to populate the ListView it's attached to.
-        mForecastAdapter =
+        mEventNameAdapter =
                 new ArrayAdapter<String>(
-                        getActivity(), // The current context (this activity)
-                        R.layout.list_item_forecast, // The name of the layout ID.
-                        R.id.list_item_forecast_textview, // The ID of the textview to populate.
+                        getActivity(),
+                        R.layout.row,
+                        R.id.list_item_name,
                         new ArrayList<String>());
+
 
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
-        listView.setAdapter(mForecastAdapter);
+        ListView listViewMain = (ListView) rootView.findViewById(R.id.listview_forecast);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewMain.setAdapter(mEventNameAdapter);
+
+
+        listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String forecast = mForecastAdapter.getItem(position);
+                String forecast = mEventNameAdapter.getItem(position);
                 //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
 
                 Intent textDetail = new Intent(getActivity(), DetailActivity.class);
@@ -171,10 +174,10 @@ public class ApiCallFragment extends Fragment
     }
 
     private void updateData() {
-        mForecastAdapter.clear();
+        mEventNameAdapter.clear();
         CallApiTask apiTask = new CallApiTask();
 
-        //get prefernce from settings page
+        //get preference from settings page
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         //String location = prefs.getString(getString(R.string.pref_location_key),
         //        getString(R.string.pref_location_default));
@@ -195,14 +198,15 @@ public class ApiCallFragment extends Fragment
     }
 
 
-    public class CallApiTask extends AsyncTask<String, Void, String[]> {
+    public class CallApiTask extends AsyncTask<String, Void, String[][]> {
+
 
         private final String LOG_TAG = CallApiTask.class.getSimpleName();
 
 
         //Implement Helper functions for JSON manipulation
 
-        private String[] getEventsDataFromJson(String forecastJsonStr)
+        private String[][] getEventsDataFromJson(String accountJsonStr)
                 throws JSONException {
 
             // These are the names of the JSON objects that need to be extracted.
@@ -210,42 +214,74 @@ public class ApiCallFragment extends Fragment
             final String FGA_NAME = "name";
             final String FGA_STIME = "start_time";
             final String FGA_ETIME = "end_time";
+            String dataName;
+            String dataDate;
+            String dataLocation;
+            String dataStartTime;
+            String dataEndTime;
+
+            JSONObject dataJson = new JSONObject(accountJsonStr);
+            JSONArray dataArray = dataJson.getJSONArray(FGA_DATA);
 
 
+            //Log.v(LOG_TAG,"Length of array="+dataArray.length());
+            //Limit to 5
+            int lengthDataArray=dataArray.length();
+            if (lengthDataArray>eventLimit) lengthDataArray=eventLimit;
+            String[][] eventDetails = new String[lengthDataArray][3];
+            for (int i = 0; i < lengthDataArray; i++) {
 
-            JSONObject facebookJson = new JSONObject(forecastJsonStr);
-            JSONArray facebookArray = facebookJson.getJSONArray(FGA_DATA);
+                    try {
+                        // Get the JSON object representing the event
+                        JSONObject dataElement = dataArray.getJSONObject(i);
 
-          
-            Log.v(LOG_TAG,"Length of facebook array="+facebookArray.length());
-            String[] resultStrs = new String[3];
-            for (int i = 0; i < 3; i++) {
+                        //Check if fields exist, else set to default
+                        if(dataElement.has(FGA_NAME)) {
+                            dataName = dataElement.getString(FGA_NAME);
 
-                // Get the JSON object representing the event
-                JSONObject dataElement = facebookArray.getJSONObject(i);
-                String dataName = dataElement.getString(FGA_NAME);
-                String dataStartTime = dataElement.getString(FGA_STIME).substring(11,16);
-                String dataEndTime = dataElement.getString(FGA_ETIME).substring(11,16);
+                        }else dataName="No event name";
 
 
-                Log.v(LOG_TAG,"Facebook data array"+" "+dataName+" "+dataStartTime+" "+dataEndTime);
+                        if(dataElement.has(FGA_STIME)) {
+                            dataStartTime = dataElement.getString(FGA_STIME).substring(11,16);
+                            if(dataElement.has(FGA_ETIME)) {
+                                dataEndTime = dataElement.getString(FGA_ETIME).substring(11,16);
+                                //System.out.println("Data End Time:" + dataEndTime);
+                            } else dataEndTime = "00:00";
 
-                resultStrs[i] = dataName+" "+dataStartTime+" "+dataEndTime;
+                        } else {dataStartTime = "All Day"; dataEndTime="";}
+
+
+                        //Write to Database
+
+                        eventDetails[i][0]=dataName;
+                        eventDetails[i][1]="\n"+"Test Date"+" "+"from"+" "+dataStartTime+"-"+dataEndTime;
+                        eventDetails[i][2]="xyz";
+                        
+
+                    }
+                    catch (JSONException e) {
+
+                        throw new RuntimeException(e);
+                    }
+
+
 
             }
-
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Facebook data entry: " + s);
+            /*
+            for (String s : eventDetails) {
+                Log.v(LOG_TAG, "Data entry: " + s);
             }
-
-            return resultStrs;
+            */
+            //return null;
+            return eventDetails;
 
         }
 
 
         //**********************************************
         @Override
-        protected String[] doInBackground(String... params) {
+        protected String[][] doInBackground(String... params) {
 
 
             // If there's no zip code, there's nothing to look up.  Verify size of params.
@@ -292,7 +328,7 @@ public class ApiCallFragment extends Fragment
                     InputStream inputStream = urlConnection.getInputStream();
                     StringBuffer buffer = new StringBuffer();
                     if (inputStream == null) {
-                        // Nothing to do.
+                        // Nothing to do
                         return null;
                     }
                     reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -346,11 +382,12 @@ public class ApiCallFragment extends Fragment
         }
 
         @Override
-        protected void onPostExecute(String[] result) {
+        protected void onPostExecute(String[][] result) {
             if (result != null) {
                 //mForecastAdapter.clear();
-                for (String dayForecastStr : result) {
-                    mForecastAdapter.add(dayForecastStr);
+                for (String[] dayForecastStr : result) {
+                    mEventNameAdapter.add(dayForecastStr[0]+dayForecastStr[1]);
+                    //mEventSummaryAdapter.add(dayForecastStr[1]);
                 }
                 // New data is back from the server.  Hooray!
             }
@@ -629,8 +666,8 @@ public class ApiCallFragment extends Fragment
             } else {
                 Log.d("#######", TextUtils.join("\n", output));
                 //mForecastAdapter.clear();
-                for (String s:output) mForecastAdapter.add(s);
-                mForecastAdapter.notifyDataSetChanged();
+                for (String s:output) mEventNameAdapter.add(s);
+                mEventNameAdapter.notifyDataSetChanged();
             }
         }
 
