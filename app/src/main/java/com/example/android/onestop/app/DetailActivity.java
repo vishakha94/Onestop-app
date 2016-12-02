@@ -31,6 +31,7 @@ public class DetailActivity extends ActionBarActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        //Code for Navigation Drawer
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,6 +43,7 @@ public class DetailActivity extends ActionBarActivity implements NavigationView.
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

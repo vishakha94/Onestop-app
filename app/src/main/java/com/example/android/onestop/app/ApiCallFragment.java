@@ -77,7 +77,7 @@ import static android.app.Activity.RESULT_OK;
 public class ApiCallFragment extends Fragment
         implements EasyPermissions.PermissionCallbacks{
 
-    static int eventLimit=12;
+    static int eventLimit=4;
     private ArrayAdapter<String> mEventNameAdapter;
     //private final String LOG_TAG = ApiCallFragment.class.getSimpleName();
 
@@ -314,7 +314,7 @@ public class ApiCallFragment extends Fragment
                         //Get time proper format
 
                         eventDetails[i][0]=dataName;
-                        eventDetails[i][1]="\n"+dataSDate+" "+"    "+" "+dataStartTime+"-"+dataEndTime;
+                        eventDetails[i][1]="\n"+dataSDate+" "+"                      "+" "+dataStartTime+"-"+dataEndTime;
                         eventDetails[i][2]="xyz";
                         
 
@@ -368,7 +368,7 @@ public class ApiCallFragment extends Fragment
                     final String APPID_PARAM = "access_token";
 
                     Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBAFYdjaBO3CZB6NVSJJXRDJbG0beZAcSN7lG7o7xmexZBmqitahEgLje00bwhUOmdTC89Dlsb1SVYhZCTwIoKcGQiDAnryV9p1p2Kza2uSlo6OIetE2cXi98mVOS9o3Mke13D5qGPP8JpRixhzaZC0VF59iBHcJgZDZD")
+                            .appendQueryParameter(APPID_PARAM, "EAACEdEose0cBAEU6Qw5K8URvTmgEc6Lbk03aKFCyVIQ6laS49KIuZAchyESdlop8ZBsleHYJNETiN6s51YMiMuY8b2pVBVOHkkuheQzuX6igAIEnb4DWE1k7KolwGS7dZAUZCIfAZAmhrmqGFHpTZCHWZBD8TILBFjRAQiUd2gRZBHoRCGaz8fbJ8btXJZBZBerfMZD")
                             .build();
 
                     URL url = new URL(builtUri.toString());
@@ -691,6 +691,7 @@ public class ApiCallFragment extends Fragment
             String dataStartTime;
             String dataEndTime;
             String timeStampG;
+            String timeStampGEnd;
             DateTime now = new DateTime(System.currentTimeMillis());
             List<String> eventStrings = new ArrayList<>();
             Events events = mService.events().list("primary")
@@ -710,10 +711,12 @@ public class ApiCallFragment extends Fragment
                      start = event.getStart().getDate();
                 }
                 timeStampG=start.toString();
+                timeStampGEnd=end.toString();
                 dataDate=formatDateFromstring("yyyy-MM-dd","MMM dd, yyyy",timeStampG.substring(0,10));
                 dataStartTime=formatTimeFromString("hh:mm:ss","hh:mm a",timeStampG.substring(11,19));
+                dataEndTime=formatTimeFromString("hh:mm:ss","hh:mm a",timeStampGEnd.substring(11,19));
                 dataName=event.getSummary();
-                eventStrings.add(String.format("%s \n %s                       %s", dataName, dataDate, dataStartTime));
+                eventStrings.add(String.format("%s \n %s                      %s-%s", dataName, dataDate, dataStartTime,dataEndTime));
             }
 
             System.out.println("Result from get data from api"+eventStrings+"\n");
