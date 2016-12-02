@@ -22,11 +22,9 @@
 	<!-- Categories Array-->
     <string-array name="categories_array">
         <item>Grocery</item>
+        <item>Shopping</item>
         <item>Work</item>
-        <item>Pharmacy</item>
-        <item>Meeting</item>
-        <item>Party</item>
-        <item>Outdoor</item>
+        <item>Entertainment</item>
     </string-array>
 
     <string name="facebook_app_id" translatable="false">1765630923759997</string>

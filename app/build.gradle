@@ -51,4 +51,5 @@ dependencies {
     // Yelp
     compile 'com.yelp.clientlib:yelp-android:2.0.0'
     compile 'com.google.android.gms:play-services-location:10.0.1'
+    compile 'com.google.android.gms:play-services:10.0.1'
 }

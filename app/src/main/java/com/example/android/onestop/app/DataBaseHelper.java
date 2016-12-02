@@ -214,7 +214,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " +
-                TABLE_EVENT + " WHERE " + EVENT_COLUMN_SOURCE + " = " + source ;
+                TABLE_EVENT + " WHERE " + EVENT_COLUMN_SOURCE + " = '" + source + "'";
 
 
         Log.d("database", selectQuery);

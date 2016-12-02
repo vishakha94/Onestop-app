@@ -2,7 +2,10 @@ package com.example.android.onestop.app;
 
 import android.util.Log;
 
+import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
+
+import java.util.Date;
 
 /**
  * Created by Zixiao on 11/29/2016.
@@ -22,6 +25,7 @@ public class OneStopEvent {
 
     public static String TimeFormat = "";
     public static Double NONE_LOCATION = -1000.0;
+    public static String ALL_DAY_EVENT = "all_day_event";
     public static String SOURCE_GOOGLECALENDAR = "googlecalendar";
     public static String SOURCE_EVERNOTE = "evernote";
     public static String SOURCE_FACEBOOK = "facebook";
@@ -34,10 +38,21 @@ public class OneStopEvent {
         String TAG = "EventCreate";
         this.event_name = e.getSummary();
         this.source = SOURCE_GOOGLECALENDAR;
-        this.start_time = e.getStart().getDateTime().toString();
-        Log.d(TAG, "start time:" + this.start_time);
-        this.end_time = e.getEnd().getDateTime().toString();
-        Log.d(TAG, "end time:" + this.end_time);
+
+
+        DateTime date = e.getStart().getDateTime();
+        if (date == null) {
+            // it is an all-day event
+            this.start_time = e.getStart().getDate().toString();
+            this.end_time = ALL_DAY_EVENT;
+        } else {
+            this.start_time = date.toString();
+            this.end_time = e.getEnd().getDateTime().toString();
+        }
+
+
+
+
         // TODO: category analysis
         this.category = "";
         this.spot_name = e.getLocation();

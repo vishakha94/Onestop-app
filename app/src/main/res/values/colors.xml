@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorList">#5ba525</color>  <!---Set to evernote green, this color basically sets the color of the list view-->
+    <color name="googlecolorList">#ffa700</color>
+    <color name="facebookcolorList">#3b5998</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="blue">#4C4CFF</color>
+    <color name="shocking_orange">#FF7F50</color>
 </resources>
